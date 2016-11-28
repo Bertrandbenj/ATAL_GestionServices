@@ -6,16 +6,19 @@ import java.time.LocalDateTime;
 import org.apache.spark.sql.Encoder;
 import org.apache.spark.sql.Encoders;
 
-public class Demande {
+public abstract class Demande {
 
 	public static Encoder<Demande> Encoder = Encoders.bean(Demande.class);
 	
 	private Boolean publie;
-	private Integer heures;
+	
+	
 	
 	public Demande() {
 
 	}
+	
+	abstract Double getVolume();
 	
 	public Boolean getPublie() {
 		return publie;
@@ -25,17 +28,8 @@ public class Demande {
 		this.publie = publie;
 	}
 
-	public Integer getHeures() {
-		return heures;
-	}
-
-	public void setHeures(Integer heures) {
-		this.heures = heures;
-	}
-
-	public Demande(Boolean publie, Integer heures) {
+	public Demande(Boolean publie) {
 		this.publie = publie;
-		this.heures = heures;
 	}
 
 }

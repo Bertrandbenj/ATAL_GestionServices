@@ -20,6 +20,7 @@ import genielogiciel.model.Enseignement;
 import genielogiciel.model.Intervention;
 import genielogiciel.model.Module;
 import genielogiciel.model.Parcours;
+import genielogiciel.model.Voeu;
 
 public class Project {
 
@@ -29,6 +30,7 @@ public class Project {
 	}
 
 	public static void main(String[] args) {
+		System.out.println("main");
 		
 		ApplicationContext springContext = new AnnotationConfigApplicationContext("genielogiciel.config");
 		SQLContext sql = (SQLContext) springContext.getBean("sqlContext");
@@ -58,7 +60,7 @@ public class Project {
 	}
 	
 	static void createDS(SQLContext sql ){
-		Demande d = new Demande(true,34);
+		
 		
 		Enseignant e = new Enseignant("Gerson", "Szunye","prof");
 		
@@ -68,6 +70,8 @@ public class Project {
 				new Enseignement("TD",15.0),
 				new Enseignement("TP",15.0),
 				new Enseignement("TP",15.0)));
+		
+		Demande d = new Voeu(m.getEnseignements().get(0),34);
 		
 		Module m2 = new Module("COD", Arrays.asList(
 				new Enseignement("CM",15.0),

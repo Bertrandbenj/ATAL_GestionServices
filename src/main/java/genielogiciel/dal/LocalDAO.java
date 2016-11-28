@@ -41,9 +41,11 @@ public class LocalDAO implements DAOInterface {
 
 	
 	public Dataset<Departement> loadDepartement() {
-		Dataset<Departement> res = sql.read()
+		Dataset<Departement> res = sql
+				.read()
 				.json("src/main/resources/departement.json")
 				.as(Departement.Encoder)
+
 				.cache();
 //		res.printSchema();
 //		res.show(false);
