@@ -9,7 +9,7 @@ import genielogiciel.model.Enseignant;
 import genielogiciel.model.Enseignement;
 import genielogiciel.model.Intervention;
 
-public interface DAOInterface {
+public interface PersistInterface {
 
 	public Dataset<Departement> loadDepartement();
 	

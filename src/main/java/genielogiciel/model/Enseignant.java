@@ -1,5 +1,8 @@
 package genielogiciel.model;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.apache.spark.sql.Encoder;
 import org.apache.spark.sql.Encoders;
 
@@ -16,6 +19,24 @@ import org.apache.spark.sql.Encoders;
  */
 
 public class Enseignant {
+	private Contrat contrat;
+	private List<Demande> demandes;
+	private Service interventions;
+	
+	public Service getInterventions() {
+		return interventions;
+	}
+
+	public void setInterventions(List<Intervention> interventions) {
+		this.interventions = new Service(interventions);
+	}
+	
+	public void setInterventions(Service service) {
+		this.interventions = interventions;
+	}
+
+	
+	
 	private String nom;
 	private String prenom;
 	private String status;
@@ -23,7 +44,6 @@ public class Enseignant {
 	public static Encoder<Enseignant> Encoder = Encoders.bean(Enseignant.class);
 
 	public Enseignant(String nom, String prenom, String status) {
-		super();
 		this.nom = nom;
 		this.prenom = prenom;
 		this.status = status;
@@ -35,6 +55,16 @@ public class Enseignant {
 
 	public String getPrenom() {
 		return prenom;
+	}
+	
+	
+	/**
+	 * REQ 16 (Expression de souhaits)
+Le système doit permettre aux enseignants d’émettre ses souhaits d’enseignement.
+	 * @param d 
+	 */
+	public void publieDemande(Demande d){
+		d.setPublie(true);
 	}
 
 	public String getStatus() {
@@ -48,9 +78,34 @@ public class Enseignant {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
+	
+
 
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public List<Demande> getDemandes() {
+		return demandes;
+	}
+
+	public void setDemandes(List<Demande> demandes) {
+		this.demandes = demandes;
+	}
+
+	public Contrat getContrat() {
+		return contrat;
+	}
+
+	public void setContrat(Contrat contrat) {
+		this.contrat = contrat;
+	}
+
+	public Integer getVolume() {
+		
+		return null;
+	}
+	
+
 
 }

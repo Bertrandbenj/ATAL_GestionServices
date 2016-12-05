@@ -24,7 +24,7 @@ import scala.Tuple2;
 import org.apache.spark.sql.functions;
 
 @Configuration
-public class LocalDAO implements DAOInterface {
+public class LocalDAO implements PersistInterface {
 
 	private SQLContext sql;
 
@@ -71,10 +71,12 @@ public class LocalDAO implements DAOInterface {
 	}
 	
 	public void demandeDeService(Departement d, Parcours p, Module m){
-		Dataset<Module> mod = modules(d,p);
-		mod.selectExpr("name as M","explode(enseignements) as e")
-			.selectExpr("M as Module","e.type","e.volume","eqTD(e.type, e.volume) as eqTD", "_1(e.type) as nbGroup")
-			.groupBy("Module","type","volume")
+		loadDepartement()
+			.selectExpr("name as Dep","explode(parcours) as p")
+			.selectExpr("Dep","p.name as Par" ,"explode(p.modules) as m")
+			.selectExpr("Dep","Par","m.name as Module","explode(m.enseignements) as e")
+			.selectExpr("Dep","Par","Module","e.type","e.volume","eqTD(e.type, e.volume) as eqTD", "_1(e.type) as nbGroup")
+			.groupBy("Dep","Par","Module","type")
 			.sum("eqTD","nbGroup")
 			.show();
 	}
