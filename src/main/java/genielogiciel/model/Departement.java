@@ -43,10 +43,11 @@ public class Departement {
 	}
 
 	/**
-	 * TODO REQ 13 (Affectation)
+	 * TODO 
+	 * REQ 13 (Affectation)
 	 * Confirmation, par le chef du département, d’un souhait d’un enseignant.
 	 */
-	public void affecter(Demande d){
+	public void affecter(Souhait d){
 		
 		enseignant.stream()
 			.flatMap(e -> e.getDemandes().stream())
@@ -54,7 +55,7 @@ public class Departement {
 		parcours.stream().flatMap(p -> p.getModules().stream());
 	}
 	
-	public void publieDemande(Demande d) {
+	public void publieDemande(Souhait d) {
 		d.setPublie(true);
 	}
 

@@ -1,34 +1,22 @@
 package genielogiciel.dal;
 
 import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SQLContext;
-import org.apache.spark.sql.TypedColumn;
 import org.apache.spark.sql.functions;
-import org.apache.spark.sql.catalyst.optimizer.PushProjectThroughSample;
 import org.apache.spark.sql.types.DataTypes;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-
-import genielogiciel.Project;
-import genielogiciel.model.Demande;
 import genielogiciel.model.Departement;
-import genielogiciel.model.Enseignant;
 import genielogiciel.model.Enseignement;
-import genielogiciel.model.Intervention;
 import genielogiciel.model.Module;
 import genielogiciel.model.Parcours;
-import scala.Tuple2;
-
-import org.apache.spark.sql.functions;
 
 @Configuration
-public class LocalDAO implements PersistInterface {
+public class SparkDAO implements PersistInterface {
 
 	private SQLContext sql;
 
-	public LocalDAO(SQLContext sql) {
+	public SparkDAO(SQLContext sql) {
 		this.sql = sql;
 		sql.udf().register("eqTD", (String tpe, Double vol) -> {
 			Double res = vol ;

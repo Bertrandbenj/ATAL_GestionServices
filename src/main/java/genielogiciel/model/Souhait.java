@@ -5,29 +5,28 @@ import java.util.UUID;
 import org.apache.spark.sql.Encoder;
 import org.apache.spark.sql.Encoders;
 
-public abstract class Demande {
+public abstract class Souhait {
 
-	public static Encoder<Demande> Encoder = Encoders.bean(Demande.class);
+	public static Encoder<Souhait> Encoder = Encoders.bean(Souhait.class);
 	
 	private Boolean publie;
 	private UUID uuid;
 	
-	
-	
-	public Demande() {
-		uuid = UUID.randomUUID();
+	public Souhait() {
+		setUuid(UUID.randomUUID());
+		setPublie(false);
 	}
 	
 	public boolean equals(Object o){
-		if(o instanceof Demande)
-			return ((Demande)o).uuid.equals(uuid);
+		if(o instanceof Souhait)
+			return ((Souhait)o).uuid.equals(uuid);
 		return false;
 	}
 	
 	abstract Double getVolume();
 
 
-	public Demande(Boolean publie) {
+	public Souhait(Boolean publie) {
 		this.setPublie(publie);
 	}
 

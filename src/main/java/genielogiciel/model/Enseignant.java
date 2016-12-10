@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.apache.spark.sql.Encoder;
 import org.apache.spark.sql.Encoders;
 
-
 /**
  * Personne ”physique” travaillant pour le compte d’un département et identifiée
  * par son nom, son prénom et son statut. Un enseignant peut ”intervenir” dans
@@ -20,9 +19,9 @@ import org.apache.spark.sql.Encoders;
 
 public class Enseignant {
 	private Contrat contrat;
-	private List<Demande> demandes;
+	private List<Souhait> demandes;
 	private Service interventions;
-	
+
 	public Service getInterventions() {
 		return interventions;
 	}
@@ -30,17 +29,15 @@ public class Enseignant {
 	public void setInterventions(List<Intervention> interventions) {
 		this.interventions = new Service(interventions);
 	}
-	
+
 	public void setInterventions(Service service) {
 		this.interventions = interventions;
 	}
 
-	
-	
 	private String nom;
 	private String prenom;
 	private String status;
-	
+
 	public static Encoder<Enseignant> Encoder = Encoders.bean(Enseignant.class);
 
 	public Enseignant(String nom, String prenom, String status) {
@@ -56,16 +53,6 @@ public class Enseignant {
 	public String getPrenom() {
 		return prenom;
 	}
-	
-	
-	/**
-	 * REQ 16 (Expression de souhaits)
-Le système doit permettre aux enseignants d’émettre ses souhaits d’enseignement.
-	 * @param d 
-	 */
-	public void publieDemande(Demande d){
-		d.setPublie(true);
-	}
 
 	public String getStatus() {
 		return status;
@@ -78,18 +65,25 @@ Le système doit permettre aux enseignants d’émettre ses souhaits d’enseign
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
-	
-
 
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public List<Demande> getDemandes() {
+	public List<Souhait> getDemandes() {
 		return demandes;
 	}
 
-	public void setDemandes(List<Demande> demandes) {
+	/**
+	 * Action, faite par un enseignant, de formuler un certain nombre de
+	 * souhaits qu’il pourra décider, par la suite, de publier (de soumettre au
+	 * chef de département et aux autres enseignants) ou pas.
+	 * 
+	 * Nous travaillons en read only {@link #publishDemandes(List)}
+	 * 
+	 * @param demandes
+	 */
+	public void setDemandes(List<Souhait> demandes) {
 		this.demandes = demandes;
 	}
 
@@ -102,10 +96,8 @@ Le système doit permettre aux enseignants d’émettre ses souhaits d’enseign
 	}
 
 	public Integer getVolume() {
-		
+
 		return null;
 	}
-	
-
 
 }
