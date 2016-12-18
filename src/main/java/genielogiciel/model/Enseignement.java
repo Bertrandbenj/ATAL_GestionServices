@@ -53,17 +53,9 @@ public class Enseignement {
 		}
 	}
 	
-	public Object[] withEqTD(){
-		Object[] res =  new Object[]{volume,type,eqTD()};
-
-		return res;
-	}
-	
 	public Row withEqTDRow(){
-		return RowFactory.create(withEqTD());
-	
+		return RowFactory.create( new Object[]{volume,type,eqTD()});
 	}
-	
 	
 	public Double getVolume() {
 		return volume;

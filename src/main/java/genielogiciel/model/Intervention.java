@@ -3,12 +3,22 @@ package genielogiciel.model;
 import org.apache.spark.sql.Encoder;
 import org.apache.spark.sql.Encoders;
 
-public abstract class Intervention {
+public class Intervention {
 	
-	Integer annee;
+	private Integer annee;
+
+	public Integer getAnnee() {
+		return annee;
+	}
+
+	public void setAnnee(Integer annee) {
+		this.annee = annee;
+	}
 
 	public static final Encoder<Intervention> Encoder = Encoders.bean(Intervention.class);
 	
-	public abstract Double getVolume();
+	public Double getVolume(){
+		return 0.0;
+	}
 
 }

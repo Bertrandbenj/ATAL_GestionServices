@@ -14,7 +14,6 @@ public class Parcours {
 	private String name;
 	
 	public Parcours(){
-		
 	}
 	
 	public Parcours(String string, Module... m) {
@@ -22,11 +21,9 @@ public class Parcours {
 		setModules(Arrays.asList(m));
 	}
 
-
 	public List<Module> getModules() {
 		return modules;
 	}
-
 
 	public void setModules(List<Module> modules) {
 		this.modules = modules;
@@ -42,6 +39,22 @@ public class Parcours {
 	
 	public String toString(){
 		return "Parcours: "+name+"\n\t"+modules.stream().map(x->x.toString()).collect(Collectors.joining("\n\t"));
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o == null)
+			return false; 
+		
+		if(o instanceof Parcours) {
+			return ((Parcours) o).getName().equals(name);
+		}
+		
+		if(o instanceof String) {
+			return ((String) o).equals(name);
+		}
+		
+		return false;
 	}
 
 }

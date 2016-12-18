@@ -7,8 +7,11 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import genielogiciel.dal.SparkDAO;
 import genielogiciel.model.Souhait;
+import genielogiciel.config.SparkConfig;
+import genielogiciel.dal.DAO;
+import genielogiciel.dal.SparkDAO;
+import genielogiciel.model.Contrat;
 import genielogiciel.model.Departement;
 import genielogiciel.model.Enseignant;
 import genielogiciel.model.Enseignement;
@@ -25,7 +28,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author ben
  *
  */
-@SpringBootApplication
 public class Project {
 
 	public Project() {
@@ -35,58 +37,63 @@ public class Project {
 		System.out.println("main");
 
 		ApplicationContext springContext = new AnnotationConfigApplicationContext("genielogiciel.config");
-		SQLContext sql = (SQLContext) springContext.getBean("sqlContext");
 
-		SparkDAO dao = new SparkDAO(sql);
-		// createDS(sql);
+		SparkConfig dao = springContext.getBean(SparkConfig.class);
+		//createDS(dao.sqlContext());
 		// sql.createDataset(Arrays.asList(d),
 		// Demande.Encoder).write().csv("demande.csv");
+		
+		new Thread(()->{
+			try {
+				Thread.sleep(1000 * 60 * 5);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}).start();
 
 		System.out.println("===========================showEnseignement===========================");
-		// dao.showEnseignement();
-		System.out.println("===========================showEnseignement2===========================");
-		// dao.showEnseignement2();
-		System.out.println("===========================Parcours===========================");
-		// dao.parcours(null).show();
+		dao.showEnseignement();
+		
 		System.out.println("===========================Demande de Service===========================");
 		dao.demandeDeService(null, null, null);
-		System.out.println("===========================Cassic java toString===========================");
-		dao.loadDepartement().collectAsList().forEach(d -> System.out.println(d.toString()));
+		
+		System.out.println("===========================Parcours===========================");
+		dao.parcours(null).forEach(p -> System.out.println(p));
+		
+		System.out.println("===========================Departement toString===========================");
+		dao.loadDepartement().forEach(d -> System.out.println(d));
 
-		try {
-			Thread.sleep(1000 * 60 * 5);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		System.out.println("===========================Pick a Module===========================");
+		dao.enseignements("Master Informatique", "M1 ATAL","Anglais").forEach(m -> System.out.println(m));
 
 	}
-	
-	@RequestMapping("/greeting")
-    public Object greeting(@RequestParam(value="name", defaultValue="World") String name) {
-        return null;
-    }
 
 	static void createDS(SQLContext sql) {
 
-		Enseignant e = new Enseignant("Gerson", "Szunye", "prof");
+		Contrat contratUnique = new Contrat(20,50);
+		
+		Enseignant e = new Enseignant("Gerson", "Szunye", "prof",contratUnique);
+		Enseignant e2 = new Enseignant("Hala", "Skaf", "prof",contratUnique);
+		Enseignant e3 = new Enseignant("Labarbe", "Laurie", "prof",contratUnique);
 
 		// Module file
-		Module m = new Module("Genie Logiciel", Arrays.asList(new Enseignement("CM", 15.0),
-				new Enseignement("TD", 15.0), new Enseignement("TP", 15.0), new Enseignement("TP", 15.0)));
+		Module m = new Module("Genie Logiciel", Arrays.asList(new Enseignement("CM", 15.0),	new Enseignement("TD", 20.0), new Enseignement("TP", 15.0), new Enseignement("TP", 15.0)));
 
-		Souhait d = new Voeu(m.getEnseignements().get(0), 34);
+		Module m2 = new Module("COD", Arrays.asList(new Enseignement("CM", 18.0), new Enseignement("TD", 15.0), new Enseignement("TP", 15.0)));
 
-		Module m2 = new Module("COD", Arrays.asList(new Enseignement("CM", 15.0), new Enseignement("TD", 15.0),
-				new Enseignement("TP", 15.0)));
-
-		Module m3 = new Module("Anglais", Arrays.asList(new Enseignement("CM", 15.0), new Enseignement("TD", 15.0)));
+		Module m3 = new Module("Anglais", Arrays.asList(new Enseignement("CM", 10.0), new Enseignement("TD", 20.0)));
 
 		Module m4 = new Module("Test", Arrays.asList(new Enseignement("CM", 15.0), new Enseignement("TD", 15.0)));
 
+		
+		// Souhait 
+		Souhait d = new Voeu(m.getEnseignements().get(0), 34);
+		
 		Parcours p = new Parcours("M1 ATAL", m, m2, m3);
 		Parcours p2 = new Parcours("M1 ALMA", m, m2, m3, m4);
 
 		Departement dep = new Departement("Master Informatique", p, p2);
+		dep.setEnseignant(Arrays.asList(e,e2,e3));
 
 		sql.createDataset(Arrays.asList(dep), Departement.Encoder).repartition(1).write().json("departement.json");
 

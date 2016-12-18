@@ -1,16 +1,27 @@
 package genielogiciel.model;
 
 public class DemandeExterieure extends Souhait {
-	String organisation;
-	Double vol;
+	private String organisation;
+	private Double volume;
 	
 	public DemandeExterieure() {
-		
+		super();
 	}
 
-	@Override
-	Double getVolume() {
-		return vol;
+	public Double getVolume() {
+		return volume;
+	}
+
+	public void setVolume(Double vol) {
+		this.volume = vol;
+	}
+
+	public String getOrganisation() {
+		return organisation;
+	}
+
+	public void setOrganisation(String organisation) {
+		this.organisation = organisation;
 	}
 
 }

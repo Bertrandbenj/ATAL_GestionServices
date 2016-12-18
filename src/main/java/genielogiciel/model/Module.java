@@ -37,8 +37,26 @@ public class Module {
 		this.name = name;
 	}
 	
+	
+	@Override
+	public boolean equals(Object o) {
+		System.out.println("module.equals "+o);
+		if (o == null)
+			return false; 
+		
+		if(o instanceof Module) {
+			return ((Module) o).getName().equals(name);
+		}
+		
+		if(o instanceof String) {
+			return ((String) o).equals(name);
+		}
+		
+		return false;
+	}
+	
 	public String toString(){
-		return "Module: "+name+"["+enseignements.stream().map(x->x.toString()).collect(Collectors.joining(","))+"]";
+		return name+" ["+enseignements.stream().map(x->x.toString()).collect(Collectors.joining(","))+"]";
 	}
 
 }

@@ -1,5 +1,6 @@
 package genielogiciel.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,29 +22,24 @@ public class Enseignant {
 	private Contrat contrat;
 	private List<Souhait> demandes;
 	private Service interventions;
-
-	public Service getInterventions() {
-		return interventions;
-	}
-
-	public void setInterventions(List<Intervention> interventions) {
-		this.interventions = new Service(interventions);
-	}
-
-	public void setInterventions(Service service) {
-		this.interventions = interventions;
-	}
-
 	private String nom;
 	private String prenom;
 	private String status;
 
 	public static Encoder<Enseignant> Encoder = Encoders.bean(Enseignant.class);
 
-	public Enseignant(String nom, String prenom, String status) {
+	
+	public Enseignant(){
+		demandes = new ArrayList<Souhait>();
+		interventions = new Service();
+	}
+	
+	public Enseignant(String nom, String prenom, String status, Contrat contratUnique) {
+		this();
 		this.nom = nom;
 		this.prenom = prenom;
 		this.status = status;
+		contrat=contratUnique;		
 	}
 
 	public String getNom() {
@@ -68,6 +64,18 @@ public class Enseignant {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public Service getInterventions() {
+		return interventions;
+	}
+
+	public void setInterventions(List<Intervention> interventions) {
+		this.interventions = new Service(interventions);
+	}
+
+	public void setInterventions(Service service) {
+		this.interventions = service;
 	}
 
 	public List<Souhait> getDemandes() {
@@ -96,8 +104,7 @@ public class Enseignant {
 	}
 
 	public Integer getVolume() {
-
-		return null;
+		return interventions.getTotVolume().intValue();
 	}
 
 }

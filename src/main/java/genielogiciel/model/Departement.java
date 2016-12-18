@@ -28,7 +28,9 @@ public class Departement {
 	 * @return un Stream d'enseignants en sous-services 
 	 */
 	public Stream<Enseignant> analyseSousService() {
-		return enseignant.stream().filter(e -> e.getContrat().getMin() > e.getInterventions().getTotVolume());
+		return enseignant
+				.stream()
+				.filter(e -> e.getContrat().getMin() > e.getInterventions().getTotVolume());
 	}
 
 	/**
@@ -87,11 +89,17 @@ public class Departement {
 
 	@Override
 	public boolean equals(Object o) {
-		if (o != null && o instanceof Departement) {
-			if (((Departement) o).getName().equals(name)) {
-				return true;
-			}
+		if (o == null)
+			return false; 
+		
+		if(o instanceof Departement) {
+			return ((Departement) o).getName().equals(name);
 		}
+		
+		if(o instanceof String) {
+			return ((String) o).equals(name);
+		}
+		
 		return false;
 	}
 

@@ -11,12 +11,13 @@ public class Voeu extends Souhait{
 	private Enseignement enseignement;
 
 	public Voeu(Enseignement e, Integer priority) {
+		super();
 		this.enseignement=e;
 		this.setPriority(priority);
 	}
 
 	@Override
-	Double getVolume() {
+	public Double getVolume() {
 		return enseignement.getVolume();
 	}
 
