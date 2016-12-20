@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toList;
 
 public class MergingDAO implements DAO {
 	
-	DAO[] daos ;
+	private DAO[] daos ;
 	
 	public MergingDAO(DAO...dao){
 		daos=dao;
