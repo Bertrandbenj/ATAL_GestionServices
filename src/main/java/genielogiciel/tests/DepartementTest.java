@@ -4,6 +4,8 @@
 package genielogiciel.tests;
 
 import static org.junit.Assert.*;
+import genielogiciel.model.Departement;
+import genielogiciel.model.Parcours;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,6 +19,7 @@ import org.junit.Test;
  */
 public class DepartementTest {
 
+	Departement d=new Departement();
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -74,15 +77,9 @@ public class DepartementTest {
 	 */
 	@Test
 	public void testGetName() {
-		fail("Not yet implemented");
-	}
+		d.setName("Informatique");
+		assertEquals("Informatique",d.getName());
 
-	/**
-	 * Test method for {@link genielogiciel.model.Departement#setName(java.lang.String)}.
-	 */
-	@Test
-	public void testSetName() {
-		fail("Not yet implemented");
 	}
 
 	/**
@@ -90,7 +87,7 @@ public class DepartementTest {
 	 */
 	@Test
 	public void testGetParcours() {
-		fail("Not yet implemented");
+		
 	}
 
 	/**
