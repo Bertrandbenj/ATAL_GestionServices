@@ -12,6 +12,7 @@ public class Parcours {
 	public static final Encoder<Parcours> Encoder = Encoders.bean(Parcours.class);
 	private List<Module> modules;
 	private String name;
+	transient Departement dep;
 	
 	public Parcours(){
 	}
@@ -26,6 +27,7 @@ public class Parcours {
 	}
 
 	public void setModules(List<Module> modules) {
+		modules.forEach(m-> m.par=this);
 		this.modules = modules;
 	}
 

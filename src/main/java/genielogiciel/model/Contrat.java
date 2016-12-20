@@ -41,4 +41,9 @@ public class Contrat {
 		this.max = max;
 	}
 
+	@Override
+	public String toString(){
+		return "["+min+" "+max+"]";
+	}
+	
 }

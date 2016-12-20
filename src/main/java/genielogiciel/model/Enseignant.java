@@ -1,5 +1,6 @@
 package genielogiciel.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,17 +22,18 @@ import org.apache.spark.sql.Encoders;
 public class Enseignant {
 	private Contrat contrat;
 	private List<Souhait> demandes;
-	private Service interventions;
+	private Service service;
 	private String nom;
 	private String prenom;
 	private String status;
+	transient Departement dep;
 
 	public static Encoder<Enseignant> Encoder = Encoders.bean(Enseignant.class);
 
 	
 	public Enseignant(){
 		demandes = new ArrayList<Souhait>();
-		interventions = new Service();
+		service = new Service();
 	}
 	
 	public Enseignant(String nom, String prenom, String status, Contrat contratUnique) {
@@ -66,16 +68,17 @@ public class Enseignant {
 		this.status = status;
 	}
 	
-	public Service getInterventions() {
-		return interventions;
+	public Service getService() {
+		return service;
 	}
 
-	public void setInterventions(List<Intervention> interventions) {
-		this.interventions = new Service(interventions);
+	public void setService(List<Intervention> interventions) {
+		interventions.forEach(i->i.ens=this);
+		this.service = new Service(interventions);
 	}
 
-	public void setInterventions(Service service) {
-		this.interventions = service;
+	public void setService(Service service) {
+		this.service = service;
 	}
 
 	public List<Souhait> getDemandes() {
@@ -92,6 +95,7 @@ public class Enseignant {
 	 * @param demandes
 	 */
 	public void setDemandes(List<Souhait> demandes) {
+		demandes.forEach(d -> d.ens=this);
 		this.demandes = demandes;
 	}
 
@@ -104,7 +108,12 @@ public class Enseignant {
 	}
 
 	public Integer getVolume() {
-		return interventions.getTotVolume().intValue();
+		return service.getTotVolume(LocalDateTime.now().getYear()).intValue();
+	}
+	
+	@Override
+	public String toString(){
+		return status+". "+nom+" "+prenom+" "+contrat;
 	}
 
 }

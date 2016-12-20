@@ -15,11 +15,18 @@ import genielogiciel.model.Parcours;
 
 public interface DAO {
 
+	
 	/**
 	 * 
 	 * @return a list of all departement
 	 */
-	public List<Departement> loadDepartement();
+	public void affecte(Souhait... s);
+	
+	/**
+	 * 
+	 * @return a list of all departement
+	 */
+	public List<Departement> departements();
 	
 	/**
 	 * @param departement a Departement or a String to filter on or null 
@@ -33,6 +40,25 @@ public interface DAO {
 	 * @return a List of Modules within this Departement and Parcours if not null;
 	 */
 	public List<Module> modules(Object departement, Object parcours);
+	
+	/**
+	 * @param  departement a Departement, a String or null to filter on
+	 * @return a List of Enseignant within this Departement;
+	 */
+	public List<Enseignant> enseignants(Object departement);
+	
+	/**
+	 * @param  departement a Departement, a String or null to filter on
+	 * @return a List of Enseignant within this Departement;
+	 */
+	public List<Souhait> souhaits(Object departement, Object enseignant);
+	
+	
+	/**
+	 * @param  departement a Departement, a String or null to filter on
+	 * @return a List of Enseignant within this Departement;
+	 */
+	public List<Intervention> intervention(Object departement, Object enseignant);
 
 	/**
 	 * @param departement a Departement, a String or null to filter on

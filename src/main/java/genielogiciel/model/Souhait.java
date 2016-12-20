@@ -1,5 +1,6 @@
 package genielogiciel.model;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.apache.spark.sql.Encoder;
@@ -11,10 +12,27 @@ public class Souhait {
 	
 	private Boolean publie;
 	private String uuid;
+	transient Enseignant ens ;
+	
+
+	public Souhait(String uuid, Boolean publie) {
+		setUuid(uuid);
+		setPublie(publie);
+	}
+	
+	public Souhait(Boolean publie) {
+		setUuid(UUID.randomUUID().toString());
+		setPublie(publie);
+	}
 	
 	public Souhait() {
-		setUuid(UUID.randomUUID().toString());
-		setPublie(false);
+		this(false);
+	}
+	
+	public Intervention affecte(){
+		Intervention res = new Intervention();
+		res.setAnnee(LocalDateTime.now().getYear());
+		return res;
 	}
 	
 	public boolean equals(Object o){
@@ -31,11 +49,6 @@ public class Souhait {
 	
 	public Double getVolume(){
 		return 0.;
-	}
-
-
-	public Souhait(Boolean publie) {
-		this.setPublie(publie);
 	}
 
 	public Boolean getPublie() {

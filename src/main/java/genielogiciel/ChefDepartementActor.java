@@ -36,7 +36,7 @@ public interface ChefDepartementActor {
 	 * @param souhaits
 	 * @return
 	 */
-	List<Intervention> affecter(Souhait... souhaits);
+	void affecter(Souhait... souhaits);
 
 	/**
 	 * REQ 15 (Analyse) Le système doit aider le chef du département à analyser

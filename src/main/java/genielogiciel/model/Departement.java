@@ -20,29 +20,6 @@ public class Departement {
 
 	}
 
-	/**
-	 * REQ 15 (Analyse) Le système doit aider le chef du département à analyser
-	 * les souhaits pour détecter des enseignants en sous-services et des
-	 * modules non pourvus.
-	 * 
-	 * @return un Stream d'enseignants en sous-services 
-	 */
-	public Stream<Enseignant> analyseSousService() {
-		return enseignant
-				.stream()
-				.filter(e -> e.getContrat().getMin() > e.getInterventions().getTotVolume());
-	}
-
-	/**
-	 * REQ 15 (Analyse) Le système doit aider le chef du département à analyser
-	 * les souhaits pour détecter des enseignants en sous-services et des
-	 * modules non pourvus.
-	 * 
-	 * @return un Stream de Modules non pourvus 
-	 */
-	public Stream<Module> analyseModuleNonPourvu() {
-		return parcours.stream().flatMap(p -> p.getModules().stream());
-	}
 
 	/**
 	 * TODO 
@@ -79,6 +56,7 @@ public class Departement {
 	}
 
 	public void setParcours(List<Parcours> parcours) {
+		parcours.forEach(p -> p.dep=this);
 		this.parcours = parcours;
 	}
 
@@ -108,6 +86,7 @@ public class Departement {
 	}
 
 	public void setEnseignant(List<Enseignant> enseignant) {
+		enseignant.forEach(e -> e.dep = this);
 		this.enseignant = enseignant;
 	}
 

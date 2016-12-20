@@ -1,6 +1,7 @@
 package genielogiciel.dal;
 
 import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.SparkSession;
 
 import genielogiciel.model.Departement;
 import genielogiciel.model.Enseignement;
@@ -12,7 +13,7 @@ import genielogiciel.model.Parcours;
  * @author ben
  *
  */
-public interface SparkDAO extends DAO {
+public interface SparkDAO {
 
 	/**
 	 * All {@link Departement} objects
@@ -43,5 +44,7 @@ public interface SparkDAO extends DAO {
 	 * @return
 	 */
 	public Dataset<Enseignement> dsEnseignements(Object departement, Object parcours, Object module);
+	
+
 
 }

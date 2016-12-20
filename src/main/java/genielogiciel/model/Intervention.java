@@ -6,6 +6,7 @@ import org.apache.spark.sql.Encoders;
 public class Intervention {
 	
 	private Integer annee;
+	transient Enseignant ens;
 
 	public Integer getAnnee() {
 		return annee;

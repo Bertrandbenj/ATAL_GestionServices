@@ -32,17 +32,11 @@ public class Service {
 		interventions = inter;
 	}
 
-	public void showService(Integer year) {
-		String s = interventions
+	public Double getTotVolume(Integer year) {
+		return interventions
 				.stream()
-				.filter(i -> year == null ? true : year.equals(i.getAnnee()))
-				.map(i -> i.toString())
-				.collect(Collectors.joining("\n"));
-		System.out.println("Services : \n" + s);
-	}
-
-	public Double getTotVolume() {
-		return interventions.stream().collect(Collectors.summingDouble(i -> i.getVolume()));
+				.filter(i -> year==null || i.getAnnee().equals(year))
+				.collect(Collectors.summingDouble(i -> i.getVolume()));
 	}
 
 	public static long getSerialversionuid() {

@@ -12,13 +12,16 @@ public class Module {
 	
 	private List<Enseignement> enseignements ;
 	private String name;
+
+	transient Parcours par;
+	
 	
 	public Module() {	
 	}
 	
 	public Module(String n , List<Enseignement> l) {
-		enseignements=l;
-		name=n;
+		setEnseignements(l);
+		setName(n);
 	}
 
 	public List<Enseignement> getEnseignements() {
@@ -26,6 +29,7 @@ public class Module {
 	}
 
 	public void setEnseignements(List<Enseignement> list) {
+		list.forEach(e -> e.mod=this);
 		this.enseignements = list;
 	}
 
@@ -40,7 +44,6 @@ public class Module {
 	
 	@Override
 	public boolean equals(Object o) {
-		System.out.println("module.equals "+o);
 		if (o == null)
 			return false; 
 		
@@ -51,12 +54,11 @@ public class Module {
 		if(o instanceof String) {
 			return ((String) o).equals(name);
 		}
-		
 		return false;
 	}
 	
 	public String toString(){
-		return name+" ["+enseignements.stream().map(x->x.toString()).collect(Collectors.joining(","))+"]";
+		return "["+enseignements.stream().map(x->x.toString()).collect(Collectors.joining(" , "))+"]";
 	}
 
 }
