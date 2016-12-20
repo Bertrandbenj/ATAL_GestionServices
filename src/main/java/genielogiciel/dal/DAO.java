@@ -18,7 +18,7 @@ public interface DAO {
 	
 	/**
 	 * 
-	 * @return a list of all departement
+	 * @return nothing
 	 */
 	public void affecte(Souhait... s);
 	
