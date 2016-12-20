@@ -20,7 +20,7 @@ import genielogiciel.model.Parcours;
  * du système doit utiliser des protocoles ouverts et disponibles sur
  * différentes plateformes.
  * 
- * @author ben
+ * @author ben & salma & kevin & samia
  *
  */
 

@@ -10,7 +10,7 @@ import genielogiciel.model.Parcours;
 
 /**
  * DAO specific to spark
- * @author ben
+ * @author ben & salma & kevin & samia
  *
  */
 public interface SparkDAO {

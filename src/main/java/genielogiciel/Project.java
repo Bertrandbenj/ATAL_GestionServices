@@ -34,7 +34,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * REQ 1 (Java) L’application doit être mise en œuvre dans le langages de
  * programmation Java (version ≥ 1.7).
  * 
- * @author ben
+ * @author ben & salma & kevin & samia
  *
  */
 public class Project {

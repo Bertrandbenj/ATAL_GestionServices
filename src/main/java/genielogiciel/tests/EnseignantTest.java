@@ -13,7 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * @author salma
+ * @author ben & salma & kevin & samia
  *
  */
 public class EnseignantTest {
