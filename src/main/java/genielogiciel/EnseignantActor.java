@@ -1,5 +1,6 @@
 package genielogiciel;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.apache.spark.sql.Dataset;
@@ -46,5 +47,5 @@ public interface EnseignantActor {
 	 * REQ 18 (Consultation des enseignements) Le système doit permettre aux
 	 * enseignants de consulter les enseignements.
 	 */
-	Dataset<Enseignement> consulterEnseignements();
+	List<Enseignement> consulterEnseignements();
 }
